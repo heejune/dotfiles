@@ -1,32 +1,30 @@
 ;; -------------------------------
 ;; http://tuhdo.github.io/c-ide.html
+;; && hekim
 ;; -------------------------------
 
 ;; Init MELPA
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "http://melpa.org/packages/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
 
-;; configure ggtags
-(require 'ggtags)
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-              (ggtags-mode 1))))
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
-(define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
-(define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
-(define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
-(define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
-(define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
-(define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
-
-(define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-;; -----------------------------------
+  ;;; Required packages
+;;; everytime emacs starts, it will automatically check if those packages are
+;;; missing, it will install them automatically
+  (when (not package-archive-contents)
+    (package-refresh-contents))
+  (defvar tmtxt/packages
+    '(helm auto-complete))
+  (dolist (p tmtxt/packages)
+    (when (not (package-installed-p p))
+      (package-install p)))
 
 (setq gc-cons-threshold 100000000)
 (setq inhibit-startup-message t)
@@ -66,6 +64,12 @@
 
 (install-packages)
 
+;;;
+;;; http://tuhdo.github.io/helm-intro.html
+(require 'helm)
+(require 'helm-config)
+(helm-mode 1)
+
 ;; this variables must be set before load helm-gtags
 ;; you can change to any prefix key of your choice
 (setq helm-gtags-prefix-key "\C-cg")
@@ -103,6 +107,7 @@
 (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
 ;; ---
 
+
 (windmove-default-keybindings)
 
 ;; function-args
@@ -136,7 +141,7 @@
 ;; “java”: The default style for java-mode (see below)
 ;; “user”: When you want to define your own style
 (setq
- c-default-style "linux" ;; set style to "linux"
+ c-default-style "ellemtel" ;; set style to "linux"
  )
 
 (global-set-key (kbd "RET") 'newline-and-indent)  ; automatically indent when press RET
@@ -217,7 +222,30 @@
 (define-key c++-mode-map [(tab)] 'company-complete)
 
 ;; compile
-(global-set-key (kbd "<f5>") (lamda()
+(global-set-key (kbd "<f5>") (lambda()
                                    (interactive)
                                    (setq-local compilation-read-command nil)
                                    (call-interactively 'compile)))
+;; cmake-mode
+(require 'cmake-mode)
+
+;;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;;; auto complete mod
+;;; should be loaded after yasnippet so that they can work together
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+;;; set the trigger key so that it can work together with yasnippet on tab key,
+;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
+;;; activate, otherwise, auto-complete will
+(ac-set-trigger-key "TAB")
+(ac-set-trigger-key "<tab>")
+
+
+(add-to-list 'load-path "~/.emacs.d/auto-complete-clang")
+(require 'auto-complete-clang)
+
+(global-set-key (kbd "C-c `") 'ac-complete-clang)
