@@ -35,7 +35,7 @@
   '(anzu
     company
     duplicate-thing
-    ggtags
+;;    ggtags
     helm
     helm-gtags
     helm-projectile
@@ -63,12 +63,6 @@
       (package-install package))))
 
 (install-packages)
-
-;;;
-;;; http://tuhdo.github.io/helm-intro.html
-(require 'helm)
-(require 'helm-config)
-(helm-mode 1)
 
 ;; this variables must be set before load helm-gtags
 ;; you can change to any prefix key of your choice
@@ -249,3 +243,8 @@
 (require 'auto-complete-clang)
 
 (global-set-key (kbd "C-c `") 'ac-complete-clang)
+
+;;; nyan-mode
+(load "nyan-mode.el")
+(nyan-mode 1)
+(nyan-start-animation)
