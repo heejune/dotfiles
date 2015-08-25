@@ -4,13 +4,13 @@
 ;; -------------------------------
 
 ;; Init MELPA
-(require 'package) ;; You might already have this line
+(require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-(package-initialize) ;; You might already have this line
+(package-initialize)
 
 (add-to-list 'package-archives
              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
@@ -18,11 +18,38 @@
   ;;; Required packages
 ;;; everytime emacs starts, it will automatically check if those packages are
 ;;; missing, it will install them automatically
+;;; hints from https://github.com/tmtxt/.emacs.d
   (when (not package-archive-contents)
     (package-refresh-contents))
-  (defvar tmtxt/packages
-    '(helm auto-complete))
-  (dolist (p tmtxt/packages)
+  (defvar hekim/packages
+    '(auto-complete
+      helm
+      magit
+      paredit
+      popup
+      yasnippet
+      autopair
+      header2
+      rainbow-mode
+      rainbow-delimiters
+      undo-tree
+      htmlize
+      exec-path-from-shell
+      web-beautify
+      nyan-mode
+
+      ;; helm
+      helm
+
+      ;; javascript
+      json-mode
+      js2-mode
+
+      ;; color theme
+      color-theme
+
+      auto-complete-clang))
+  (dolist (p hekim/packages)
     (when (not (package-installed-p p))
       (package-install p)))
 
@@ -35,7 +62,6 @@
   '(anzu
     company
     duplicate-thing
-;;    ggtags
     helm
     helm-gtags
     helm-projectile
@@ -53,16 +79,16 @@
     undo-tree
     zygospore))
 
-(defun install-packages ()
-  "Install all required packages."
-  (interactive)
-  (unless package-archive-contents
-    (package-refresh-contents))
-  (dolist (package demo-packages)
-    (unless (package-installed-p package)
-      (package-install package))))
+;; (defun install-packages ()
+;;   "Install all required packages."
+;;   (interactive)
+;;   (unless package-archive-contents
+;;     (package-refresh-contents))
+;;   (dolist (package demo-packages)
+;;     (unless (package-installed-p package)
+;;       (package-install package))))
 
-(install-packages)
+;; (install-packages)
 
 ;; this variables must be set before load helm-gtags
 ;; you can change to any prefix key of your choice
@@ -248,3 +274,10 @@
 (load "nyan-mode.el")
 (nyan-mode 1)
 (nyan-start-animation)
+
+;;; window resize
+;;; http://stackoverflow.com/questions/6315243/emacs-nw-mode-resize-split-window
+(global-set-key (kbd "<A-up>") 'shrink-window)
+(global-set-key (kbd "<A-down>") 'enlarge-window)
+(global-set-key (kbd "<A-left>") 'shrink-window-horizontally)
+(global-set-key (kbd "<A-right>") 'enlarge-window-horizontally)
