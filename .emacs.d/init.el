@@ -1,12 +1,17 @@
 ;; -------------------------------
+;; Based on following references
 ;; http://tuhdo.github.io/c-ide.html
-;; && hekim
+;; https://github.com/tmtxt/.emacs.d/blob/master/init.el
+;;
+;; heejune@gmail.com
 ;; -------------------------------
 
-;; Init MELPA
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
+             '(("melpa" . "http://melpa.org/packages/")
+               ("org" . "http://orgmode.org/elpa/")
+               ("melpa-stable" . "http://stable.melpa.org/packages/")))
+
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
@@ -45,10 +50,28 @@
       json-mode
       js2-mode
 
-      ;; color theme
-      color-theme
+      ;; from demo-packages
+      company
+      helm
+      helm-gtags
+      helm-projectile
+      helm-swoop
+      function-args
+      clean-aindent-mode
+      comment-dwim-2
+      dtrt-indent
+      ws-butler
+      iedit
+      yasnippet
+      smartparens
+      projectile
+      volatile-highlights
+      undo-tree
+      zygospore
 
-      auto-complete-clang))
+      ;; theme
+
+      monokai-theme))
   (dolist (p hekim/packages)
     (when (not (package-installed-p p))
       (package-install p)))
@@ -103,6 +126,12 @@
  )
 
 (add-to-list 'load-path "~/.emacs.d/custom")
+(add-to-list 'load-path "~/.emacs.d/auto-complete-clang")
+(add-to-list 'load-path "~/.emacs.d/config")
+
+;;; custom file
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
 (require 'setup-helm)
 (require 'setup-helm-gtags)
@@ -264,8 +293,6 @@
 (ac-set-trigger-key "TAB")
 (ac-set-trigger-key "<tab>")
 
-
-(add-to-list 'load-path "~/.emacs.d/auto-complete-clang")
 (require 'auto-complete-clang)
 
 (global-set-key (kbd "C-c `") 'ac-complete-clang)
@@ -281,3 +308,6 @@
 (global-set-key (kbd "<A-down>") 'enlarge-window)
 (global-set-key (kbd "<A-left>") 'shrink-window-horizontally)
 (global-set-key (kbd "<A-right>") 'enlarge-window-horizontally)
+
+;; load theme
+(load-theme 'monokai t)
