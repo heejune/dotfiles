@@ -6,19 +6,15 @@
 ;; heejune@gmail.com
 ;; -------------------------------
 
-(require 'package)
+(require 'package) ;; You might already have this line
+;; (add-to-list 'package-archives
+;;              '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
-             '(("melpa" . "http://melpa.org/packages/")
-               ("org" . "http://orgmode.org/elpa/")
-               ("melpa-stable" . "http://stable.melpa.org/packages/")))
-
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-(package-initialize)
-
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(package-initialize) ;; You might already have this line
 
   ;;; Required packages
 ;;; everytime emacs starts, it will automatically check if those packages are
@@ -249,9 +245,9 @@
 (smartparens-global-mode 1)
 
 ;; Package: projejctile
-(require 'projectile)
-(projectile-global-mode)
-(setq projectile-enable-caching t)
+;;(require 'projectile)
+;(projectile-global-mode)
+;; (setq projectile-enable-caching t)
 
 (require 'helm-projectile)
 (helm-projectile-on)
@@ -311,3 +307,22 @@
 
 ;; load theme
 (load-theme 'monokai t)
+
+(require 'undo-tree)
+
+;; Gnus
+(load "gnus-config.el")
+
+;; jedi
+;; Standard Jedi.el setting
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
+
+;; Type:
+;;     M-x el-get-install RET jedi RET
+;;     M-x jedi:install-server RET
+;; Then open Python file.
+
+;; Fix tramp slow issue on yosemite
+;; http://emacs.stackexchange.com/questions/17543/tramp-mode-is-much-slower-than-using-terminal-to-ssh
+(setq projectile-mode-line "Projectile")
