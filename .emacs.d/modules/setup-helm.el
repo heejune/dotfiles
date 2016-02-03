@@ -92,6 +92,16 @@
 ;; If nil, you can slightly boost invoke speed in exchange for text color
 (setq helm-swoop-speed-or-color t)
 
+(require 'setup-helm-gtags)
+;; (require 'setup-ggtags)
+
+;; ---
+
+(require 'helm-projectile)
+(helm-projectile-on)
+(setq projectile-completion-system 'helm)
+(setq projectile-indexing-method 'alien)
+
 (helm-mode 1)
 
 (provide 'setup-helm)
