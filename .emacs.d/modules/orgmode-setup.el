@@ -16,6 +16,12 @@
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     (add-to-list 'org-export-backends 'taskjuggler)
 
+    ;;; http://orgmode.org/worg/org-dependencies.html
+    ;;; setup source code syntax highlight
+    (setq org-latex-listings t)
+    (add-to-list 'org-latex-packages-alist '("" "listings"))
+    (add-to-list 'org-latex-packages-alist '("" "color"))
+
 ;;; setup beamer
 ;;; http://orgmode.org/worg/exporters/beamer/ox-beamer.html
     (add-to-list 'org-latex-classes
@@ -41,6 +47,14 @@
         (emacs-lisp . t)
         (matlab . t)
         (C . t)))
+
+    ;; agenda setup
+    (setq org-agenda-files '("~/Dropbox/private/orgs"))
+
+    ;; override the default keyword
+    (setq org-todo-keywords
+          '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+
     )
 )
 
