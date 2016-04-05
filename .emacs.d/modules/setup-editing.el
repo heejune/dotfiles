@@ -297,4 +297,60 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "M-o") 'prelude-smart-open-line)
 (global-set-key (kbd "M-o") 'open-line)
 
+;; <backtab> issue
+;; http://stackoverflow.com/questions/2249955/emacs-shift-tab-to-left-shift-the-block
+
+(defun indent-region(numSpaces)
+    (progn
+        ; default to start and end of current line
+        (setq regionStart (line-beginning-position))
+        (setq regionEnd (line-end-position))
+
+        ; if there's a selection, use that instead of the current line
+        (when (use-region-p)
+            (setq regionStart (region-beginning))
+            (setq regionEnd (region-end))
+        )
+
+        (save-excursion ; restore the position afterwards
+            (goto-char regionStart) ; go to the start of region
+            (setq start (line-beginning-position)) ; save the start of the line
+            (goto-char regionEnd) ; go to the end of region
+            (setq end (line-end-position)) ; save the end of the line
+
+            (indent-rigidly start end numSpaces) ; indent between start and end
+            (setq deactivate-mark nil) ; restore the selected region
+        )
+    )
+)
+
+(defun untab-region (N)
+    (interactive "p")
+    (indent-region -4)
+)
+
+(defun tab-region (N)
+    (interactive "p")
+    (if (use-region-p)
+        (indent-region 4) ; region was selected, call indent-region
+        (insert "    ") ; else insert four spaces as expected
+    )
+    )
+
+(defun un-indent-by-removing-4-spaces ()
+  "remove 4 spaces from beginning of of line"
+  (interactive)
+  (save-excursion
+    (save-match-data
+      (beginning-of-line)
+      ;; get rid of tabs at beginning of line
+      (when (looking-at "^\\s-+")
+        (untabify (match-beginning 0) (match-end 0)))
+      (when (looking-at "^    ")
+        (replace-match "")))))
+
+;;(global-set-key (kbd "<tab>") 'tab-region)
+(global-set-key (kbd "<backtab>") 'untab-region)
+;;(global-set-key (kbd "<S-tab>") 'un-indent-by-removing-4-spaces)
+
 (provide 'setup-editing)

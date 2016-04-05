@@ -82,6 +82,18 @@ by Prelude.")
 
 (message "Loading core...")
 
+
+;; ref https://github.com/jfroffice/emacs.d/blob/master/init.el
+;; This function replaces modes in some alist with another mode
+;;
+;; Some modes just insist on putting themselves into the
+;; auto-mode-alist, this function helps me get rid of them
+(defun replace-auto-mode (oldmode newmode)
+  (dolist (aitem auto-mode-alist)
+    (if (eq (cdr aitem) oldmode)
+        (setcdr aitem newmode))))
+
+
 ;; the core stuff
 (require 'packages)
 (require 'prelude-custom)  ;; Needs to be loaded before core, editor and ui

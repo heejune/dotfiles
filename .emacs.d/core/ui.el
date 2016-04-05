@@ -11,7 +11,9 @@
 
 ;; mode line settings
 (line-number-mode t)
-(global-linum-mode t)
+;; linum-mode doens't work as expected when increased text size
+;; 2016-04-02 hekim
+;;(global-linum-mode t)
 (column-number-mode t)
 (size-indication-mode t)
 
@@ -21,6 +23,12 @@
 ;; load theme
 (load-theme 'monokai t)
 ;;(load-theme 'leuven t)                  ; For Emacs 24+.
+
+;; hide toolbar
+(if window-system
+    (tool-bar-mode -1)
+)
+
 
 (provide 'ui)
 ;;; ui.el ends here

@@ -41,8 +41,13 @@
       helm
 
       ;; javascript
+      flymake-jshint
       json-mode
       js2-mode
+      js2-highlight-vars
+      js2-refactor
+      tern
+      company-tern
 
       ;; from demo-packages
       company

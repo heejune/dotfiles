@@ -1,5 +1,6 @@
 
 
+;; https://github.com/porterjamesj/virtualenvwrapper.el
 ;;; Code:
 
 (require 'python)
@@ -19,10 +20,13 @@
 (venv-initialize-interactive-shells) ;; if you want interactive shell support
 (venv-initialize-eshell) ;; if you want eshell support
 ;;(setq venv-location "/path/to/your/virtualenvs/")
+
 ;; Used by virtualenvwrapper.el
-(setq venv-location (expand-file-name "~/venv"))   ;; Change with the path to your virtualenvs
+(setq venv-location (expand-file-name "~/.envs"))   ;; Change with the path to your virtualenvs
 ;; Used python-environment.el and by extend jedi.el
 (setq python-environment-directory venv-location)
+
+;;(setq python-shell-virtualenv-path venv-location)
 
 ;; virtualenv setting
 ;; http://stackoverflow.com/questions/21246218/how-can-i-make-emacs-jedi-use-project-specific-virtualenvs
@@ -88,3 +92,5 @@ is considered to be a project root."
 
 ;; (setq jedi:environment-virtualenv
 ;;       (list "virtualenv3" "--system-site-packages"))
+
+(provide 'setup-python)

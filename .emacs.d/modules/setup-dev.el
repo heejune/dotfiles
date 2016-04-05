@@ -44,16 +44,14 @@
  gdb-show-main t
  )
 
-;; hs-minor-mode for folding source code
-(add-hook 'c-mode-common-hook 'hs-minor-mode)
 
-;; prevent the error c-mode-map nil
-(require 'cc-mode)
-
-(load-library "setup-python")
+;;(load-library "setup-python")
+(require 'setup-python)
 ;;(require 'setup-ggtags)
+(require 'setup-cc)
 (require 'setup-helm)
 (require 'setup-company)
 (require 'setup-cedet)
+(require 'setup-javascript)
 
 (provide 'setup-dev)
