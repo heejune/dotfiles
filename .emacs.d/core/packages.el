@@ -34,6 +34,10 @@
       nyan-mode
       column-marker
 
+      ;; missing
+      anzu
+      duplicate-thing
+
       ;; web
       elfeed
 
