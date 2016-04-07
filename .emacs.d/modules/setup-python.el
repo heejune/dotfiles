@@ -66,7 +66,8 @@ is considered to be a project root."
   (setq jedi:complete-on-dot t)
   (jedi:setup)
   (add-to-list 'company-backends 'company-jedi)
-  (setq-default python-indent-offset 4)    )
+  (setq-default python-indent-offset 4)
+  (setq python-indent-guess-indent-offset nil))
 
 ;; Highlight character at "fill-column" position.
 (require 'column-marker)
@@ -82,7 +83,7 @@ is considered to be a project root."
 
 (defun python-shell-parse-command ()
   "Return the string used to execute the inferior Python process."
-  "/Library/Frameworks/Python.framework/Versions/3.4/bin/python3 -i"
+  "python3 -i"
   )
 
 ;; (setq jedi:environment-root "jedi")  ; or any other name you like
