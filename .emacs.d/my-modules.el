@@ -19,7 +19,6 @@
 ;; elfeed
 (setq elfeed-feeds
       '("http://www.reddit.com/r/emacs/.rss"
-        "https://www.reddit.com/r/programming/.rss"
         "https://www.reddit.com/r/CS_Questions/.rss"
         "https://www.reddit.com/r/coding/.rss"
         "http://www.reddit.com/r/cpp/.rss"))

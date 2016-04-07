@@ -21,8 +21,9 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; load theme
-(load-theme 'monokai t)
+;;(load-theme 'monokai t)
 ;;(load-theme 'leuven t)                  ; For Emacs 24+.
+(load-theme 'deeper-blue t)
 
 ;; hide toolbar
 (if window-system
