@@ -7,7 +7,8 @@
 ;; (add-to-list 'package-archives
 ;;              '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
@@ -17,9 +18,10 @@
 ;;; everytime emacs starts, it will automatically check if those packages are
 ;;; missing, it will install them automatically
 ;;; hints from https://github.com/tmtxt/.emacs.d
-  (when (not package-archive-contents)
-    (package-refresh-contents))
-  (defvar hekim/packages
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(defvar hekim/packages
     '(magit
       paredit
       popup
@@ -33,6 +35,9 @@
       web-beautify
       nyan-mode
       column-marker
+
+      ;; ui enhancement
+      which-key
 
       ;; missing
       anzu
@@ -85,7 +90,8 @@
       ;; theme
       leuven-theme
       monokai-theme))
-  (dolist (p hekim/packages)
+
+(dolist (p hekim/packages)
     (when (not (package-installed-p p))
       (package-install p)))
 

@@ -18,9 +18,7 @@
 
 ;; elfeed
 (setq elfeed-feeds
-      '("http://www.reddit.com/r/emacs/.rss"
-        "https://www.reddit.com/r/CS_Questions/.rss"
-        "https://www.reddit.com/r/coding/.rss"
+      '("https://www.reddit.com/r/CS_Questions/.rss"
         "http://www.reddit.com/r/cpp/.rss"))
 
 (setf url-queue-timeout 30)
@@ -37,7 +35,7 @@
 (setq browse-url-browser-function 'w3m-goto-url-new-session)
 
 ;;change w3m user-agent to android
-(setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+;;(setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
 
 ;;quick access hacker news
 (defun hn ()
@@ -94,7 +92,7 @@
 
 ;; settings from http://docs.astropy.org/en/stable/development/codeguide_emacs.html
 ;; Set the number to the number of columns to use.
-(setq-default fill-column 79)
+;;(setq-default fill-column 79)
 
 ;; Add Autofill mode to mode hooks.
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -117,6 +115,10 @@
                                 backward-char forward-char))
     (ding)))
 (setq ring-bell-function 'my-bell-function)
+
+;; setup which-key (https://github.com/justbur/emacs-which-key)
+(require 'which-key)
+(which-key-mode)
 
 
 (provide 'my-modules)

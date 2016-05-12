@@ -22,8 +22,8 @@
 
 ;; load theme
 ;;(load-theme 'monokai t)
-;;(load-theme 'leuven t)                  ; For Emacs 24+.
-(load-theme 'deeper-blue t)
+(load-theme 'leuven t)                  ; For Emacs 24+.
+;;(load-theme 'deeper-blue t)
 
 ;; hide toolbar
 (if window-system

@@ -23,6 +23,8 @@
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     (add-to-list 'org-export-backends 'taskjuggler)
 
+    (add-to-list 'org-src-lang-modes '("http" . ob-http))
+
     ;;; http://orgmode.org/worg/org-dependencies.html
     ;;; setup source code syntax highlight
     (setq org-latex-listings t)
@@ -64,11 +66,11 @@
         (python . t)
         (emacs-lisp . t)
         (matlab . t)
+        (http . t)
         (C . t)))
 
     ;; agenda setup
     (setq org-agenda-files '("~/Dropbox/private/orgs"))
-
     ;; override the default keyword
     ;; (setq org-todo-keywords
     ;;       '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
@@ -235,6 +237,17 @@
 ;;; this final command adds the new .org file to the agenda
       (org-agenda-file-to-front)
       )
+
+    ;; http://stackoverflow.com/questions/18168146/how-to-remove-just-some-tags-in-org-mode-using-a-custom-function
+    (defun zin/org-remove-tag (tag)
+    "Removes `TAG' from current list of tags if it's refiled."
+    (org-toggle-tag tag 'off))
+
+(defun zin/remove-refile-tag ()
+   "Removes `:REFILE:' tag from list of tags when an item is refiled."
+  (zin/org-remove-tag "REFILE"))
+
+(add-hook 'org-after-refile-insert-hook 'zin/remove-refile-tag)
 
     ) ;; lambda
 ) ;; eval-after-load
