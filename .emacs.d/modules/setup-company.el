@@ -14,11 +14,15 @@
 ;;(define-key c++-mode-map  [(control tab)] 'company-complete)
 
 ;; company-c-headers
-;;(add-to-list 'company-backends 'company-c-headers)
+(add-to-list 'company-backends 'company-c-headers)
+;; add QT header - void variable --
+;;(add-to-list 'company-c-headers-path-system "~/Qt5.6.0/5.6/clang_64/lib/QtWidgets.framework/Headers")
 
-;; Source code completion with Clang
-(setq company-backends (delete 'company-semantic company-backends))
-(define-key c-mode-map [(tab)] 'company-complete)
-(define-key c++-mode-map [(tab)] 'company-complete)
+
+;; use rtags
+;; Source code completion with Clang (from: http://tuhdo.github.io/c-ide.html)
+;;(setq company-backends (delete 'company-semantic company-backends))
+;;(define-key c-mode-map [(tab)] 'company-complete)
+;;(define-key c++-mode-map [(tab)] 'company-complete)
 
 (provide 'setup-company)

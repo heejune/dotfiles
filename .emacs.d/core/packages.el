@@ -36,6 +36,9 @@
       nyan-mode
       column-marker
 
+      ;; cc-dev
+      rtags
+
       ;; ui enhancement
       which-key
 

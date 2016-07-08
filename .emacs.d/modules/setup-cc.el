@@ -7,6 +7,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
+;; Note. Uninstalled.
 ;; http://stackoverflow.com/questions/663588/emacs-c-mode-incorrect-indentation
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode, c++-mode, objc-mode, java-mode
@@ -19,7 +20,7 @@
 
   (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
   (setq tab-width 4)
-  (setq indent-tabs-mode t)  ; use spaces only if nil
+  (setq indent-tabs-mode nil)  ; use spaces only if nil
   )
 
 (defun fix-c-indent-offset-according-to-syntax-context (key val)
@@ -39,7 +40,7 @@
               (fix-c-indent-offset-according-to-syntax-context 'substatement-open 0))
             ))
 
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+;;(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 (setq-default c-basic-offset 4)
 
@@ -75,15 +76,82 @@ the directories in the INCLUDE environment variable."
                                    (brace-list-open . 0)
                                    (statement-case-open . +)))))
 
+;; Also uninstalled...
 (defun my-c++-mode-hook ()
   (c-set-style "my-style")        ; use my-style defined above
   (auto-fill-mode)
   (c-toggle-auto-hungry-state 1))
 
-(add-hook 'c++-mode-hook 'my-c++-mode-hook)
+;; disable hungry mode.. 2016-06-14 by hekim
+;;(add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
-(define-key c++-mode-map "\C-ct" 'some-function-i-want-to-call)
+;;(define-key c++-mode-map "\C-ct" 'some-function-i-want-to-call)
 
+;; http://emacs.stackexchange.com/questions/2904/tab-does-not-auto-indent-lines-anymore
+;; Fix indent when tab pressed
+;; (setq tab-always-indent 'complete)
+
+;; rtags setup
+;; https://github.com/Andersbakken/rtags
+;; http://syamajala.github.io/c-ide.html
+
+(require 'rtags)
+(require 'company)
+(require 'company-rtags)
+
+(add-hook 'c-mode-common-hook 'rtags-start-process-unless-running)
+(add-hook 'c++-mode-common-hook 'rtags-start-process-unless-running)
+
+(defun tags-find-symbol-at-point (&optional prefix)
+  (interactive "P")
+  (if (and (not (rtags-find-symbol-at-point prefix)) rtags-last-request-not-indexed)
+      (gtags-find-tag)))
+(defun tags-find-references-at-point (&optional prefix)
+  (interactive "P")
+  (if (and (not (rtags-find-references-at-point prefix)) rtags-last-request-not-indexed)
+      (gtags-find-rtag)))
+(defun tags-find-symbol ()
+  (interactive)
+  (call-interactively (if (use-rtags) 'rtags-find-symbol 'gtags-find-symbol)))
+(defun tags-find-references ()
+  (interactive)
+  (call-interactively (if (use-rtags) 'rtags-find-references 'gtags-find-rtag)))
+(defun tags-find-file ()
+  (interactive)
+  (call-interactively (if (use-rtags t) 'rtags-find-file 'gtags-find-file)))
+(defun tags-imenu ()
+  (interactive)
+  (call-interactively (if (use-rtags t) 'rtags-imenu 'idomenu)))
+
+(define-key c-mode-base-map (kbd "M-.") (function tags-find-symbol-at-point))
+(define-key c-mode-base-map (kbd "M-,") (function tags-find-references-at-point))
+(define-key c-mode-base-map (kbd "M-;") (function tags-find-file))
+(define-key c-mode-base-map (kbd "C-.") (function tags-find-symbol))
+(define-key c-mode-base-map (kbd "C-,") (function tags-find-references))
+(define-key c-mode-base-map (kbd "C-<") (function rtags-find-virtuals-at-point))
+(define-key c-mode-base-map (kbd "M-i") (function tags-imenu))
+
+(define-key global-map (kbd "M-.") (function tags-find-symbol-at-point))
+(define-key global-map (kbd "M-,") (function tags-find-references-at-point))
+(define-key global-map (kbd "M-;") (function tags-find-file))
+(define-key global-map (kbd "C-.") (function tags-find-symbol))
+(define-key global-map (kbd "C-,") (function tags-find-references))
+(define-key global-map (kbd "C-<") (function rtags-find-virtuals-at-point))
+(define-key global-map (kbd "M-i") (function tags-imenu))
+
+(setq rtags-autostart-diagnostics t)
+(rtags-diagnostics)
+(setq rtags-completions-enabled t)
+
+(push 'company-rtags company-backends)
+(global-company-mode)
+(define-key c-mode-base-map (kbd "<C-tab>") (function company-complete))
+
+(rtags-enable-standard-keybindings)
+
+(setq rtags-use-helm t)
+
+(require 'flycheck-rtags)
 
 
 (provide 'setup-cc)

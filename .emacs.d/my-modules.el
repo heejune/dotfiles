@@ -94,8 +94,9 @@
 ;; Set the number to the number of columns to use.
 ;;(setq-default fill-column 79)
 
+;; 2016-06-25, Disabled the Auto Refill mode
 ;; Add Autofill mode to mode hooks.
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; Show line number in the mode line.
 ;; disabled lin min mode
@@ -120,6 +121,12 @@
 (require 'which-key)
 (which-key-mode)
 
+;; tramp mode setup
+(setq tramp-default-method "ssh")
+
+;; custom keybinding setup
+;; my HHK USB keyboard doesn't get M < key combination
+(global-set-key (kbd "C-<") 'beginning-of-buffer)
 
 (provide 'my-modules)
 ;;; my-modules.el ends here

@@ -13,7 +13,7 @@
   (lambda()
     (require 'ob-C)
     (require 'org-bullets)
-    (require 'ox-taskjuggler)
+    ;;    (require 'ox-taskjuggler) not use anymore...
     (require 'ox-latex)
 
     (define-key global-map "\C-cl" 'org-store-link)
@@ -111,7 +111,6 @@
 
     ;; Allow setting single tags without the menu
     (setq org-fast-tag-selection-single-key (quote expert))
-
 
     ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
     (setq org-capture-templates

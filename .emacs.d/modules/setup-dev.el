@@ -9,9 +9,10 @@
 (yas-global-mode 1)
 
 ;; Package: projejctile
-;;(require 'projectile)
-                                        ;(projectile-global-mode)
-;; (setq projectile-enable-caching t)
+(require 'projectile)
+(projectile-global-mode)
+(setq projectile-enable-caching t)
+(projectile-global-mode)
 
 ;; cmake-mode
 (require 'cmake-mode)
@@ -32,7 +33,6 @@
 ;;(ac-set-trigger-key "<tab>")
 
 ;;(require 'auto-complete-clang)
-
 ;;(global-set-key (kbd "C-c `") 'ac-complete-clang)
 
 ;; setup GDB
@@ -48,9 +48,9 @@
 ;;(load-library "setup-python")
 (require 'setup-python)
 ;;(require 'setup-ggtags)
-(require 'setup-cc)
 (require 'setup-helm)
 (require 'setup-company)
+(require 'setup-cc)
 (require 'setup-cedet)
 (require 'setup-javascript)
 

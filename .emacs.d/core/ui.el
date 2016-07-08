@@ -30,6 +30,5 @@
     (tool-bar-mode -1)
 )
 
-
 (provide 'ui)
 ;;; ui.el ends here
