@@ -4,10 +4,10 @@
 (require 'cl)
 (require 'package) ;; You might already have this line
 
-;; (add-to-list 'package-archives
-;;              '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+ (add-to-list 'package-archives
+              '("melpa" . "https://melpa.org/packages/"))
+;;(add-to-list 'package-archives
+;;             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
@@ -26,15 +26,16 @@
       paredit
       popup
       autopair
-      header2
+      ;;header2 missing from melpa
       rainbow-mode
       rainbow-delimiters
       undo-tree
       htmlize
       exec-path-from-shell
       web-beautify
-      nyan-mode
+      ;;nyan-mode    installed manually
       column-marker
+      ob-http
 
       ;; cc-dev
       rtags

@@ -28,7 +28,11 @@
 ;; hide toolbar
 (if window-system
     (tool-bar-mode -1)
-)
+  )
+
+;; nyan-mode
+(require 'nyan-mode)
+(nyan-mode 1)
 
 (provide 'ui)
 ;;; ui.el ends here
