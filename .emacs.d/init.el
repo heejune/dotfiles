@@ -99,13 +99,23 @@ by Prelude.")
 (require 'prelude-custom)  ;; Needs to be loaded before core, editor and ui
 (require 'ui)
 (require 'core)
-;; (require 'de-mode)
 (require 'editor)
 (require 'keybinding)
 
 ;; OSX specific settings
 (when (eq system-type 'darwin)
   (require 'osx))
+
+(when (eq system-type 'gnu/linux)
+  (defvar dropbox-dir "~/Dropbox"
+  "Dropbox home folder.")
+  )
+
+;; Windows-nt specific
+(when (eq system-type 'windows-nt)
+  (defvar dropbox-dir "D:/storage/Dropbox"
+  "Dropbox home folder.")
+  )
 
 (message "Loading modules...")
 

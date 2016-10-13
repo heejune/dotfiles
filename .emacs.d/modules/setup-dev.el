@@ -50,7 +50,7 @@
 ;;(require 'setup-ggtags)
 (require 'setup-helm)
 (require 'setup-company)
-(require 'setup-cc)
+(require 'setup-cc-clang)
 (require 'setup-cedet)
 (require 'setup-javascript)
 
