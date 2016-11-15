@@ -82,7 +82,6 @@ by Prelude.")
 
 (message "Loading core...")
 
-
 ;; ref https://github.com/jfroffice/emacs.d/blob/master/init.el
 ;; This function replaces modes in some alist with another mode
 ;;
@@ -114,7 +113,8 @@ by Prelude.")
 ;; Windows-nt specific
 (when (eq system-type 'windows-nt)
   (defvar dropbox-dir "D:/storage/Dropbox"
-  "Dropbox home folder.")
+    "Dropbox home folder.")
+  (require 'windows)
   )
 
 (message "Loading modules...")
