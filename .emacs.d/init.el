@@ -112,7 +112,7 @@ by Prelude.")
 
 ;; Windows-nt specific
 (when (eq system-type 'windows-nt)
-  (defvar dropbox-dir "D:/storage/Dropbox"
+  (defvar dropbox-dir "D:/Dropbox"
     "Dropbox home folder.")
   (require 'windows)
   )
