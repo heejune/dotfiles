@@ -16,6 +16,12 @@
 
 ;; cmake-mode
 (require 'cmake-mode)
+; Add cmake listfile names to the mode list.
+(setq auto-mode-alist
+      (append
+       '(("CMakeLists\\.txt\\'" . cmake-mode))
+       '(("\\.cmake\\'" . cmake-mode))
+       auto-mode-alist))
 
 ;;; yasnippet
 (require 'yasnippet)
@@ -50,7 +56,7 @@
 ;;(require 'setup-ggtags)
 (require 'setup-helm)
 (require 'setup-company)
-(require 'setup-cc)
+(require 'setup-cc-clang)
 (require 'setup-cedet)
 (require 'setup-javascript)
 
