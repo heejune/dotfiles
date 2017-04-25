@@ -496,6 +496,12 @@ With a prefix argument ARG, find the `user-init-file' instead."
 ;;           (add-to-list 'symbol-names (substring-no-properties name))
 ;;           (add-to-list 'name-and-pos (cons (substring-no-properties name) position))))))))
 
+;; specify coding system
+(message "Specifying utf-8 and Korean input method...")
+(prefer-coding-system 'utf-8)
+(setq default-input-method "korean-hangul")
+(global-set-key (kbd "<kana>") 'toggle-input-method)
+(global-set-key (kbd "<S-kana>") 'toggle-input-method)
 
 (provide 'core)
 ;;; prelude-core.el ends here

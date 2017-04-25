@@ -105,7 +105,8 @@ by Prelude.")
 
 ;; OSX specific settings
 (when (eq system-type 'darwin)
-  (require 'osx))
+  (require 'osx)
+  )
 
 (message "Loading modules...")
 
