@@ -116,7 +116,7 @@
                   ("IN-PROGRESS" ("WAITING") ("CANCELLED") ("HOLD"))
                   ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
-    (setq org-directory 'org-dir)
+    (setq org-directory org-dir)
     (setq org-default-notes-file (expand-file-name "refile.org" org-dir))
 
     ;; I use C-c c to start capture mode
@@ -137,12 +137,7 @@
                    "* %?\n%U\n" :clock-in t :clock-resume t)
                   ("w" "org-protocol" entry (file org-default-notes-file)
                    "* TODO Review %c\n%U\n" :immediate-finish t)
-                  ("m" "Meeting" entry (file org-default-notes-file)
-                   "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                  ("p" "Phone call" entry (file org-default-notes-file)
-                   "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                  ("h" "Habit" entry (file org-default-notes-file)
-                   "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+                  )))
 
     (add-to-list 'org-capture-templates '("b" "Buy list" entry (file org-default-notes-file)
                                           "* %? :BUYLIST:\n%U\n%a\n" :clock-in t :clock-resume t) t)
@@ -168,7 +163,7 @@
           (todo "NEEDSREVIEW"
                 ((org-agenda-overriding-header "Waiting on reviews")))
           ;; All "WAITING" items without a "support" tag
-          (tags "WAITING-support"
+          (tags "WAITING"
                 ((org-agenda-overriding-header "Waiting for something")))
           ;; All TODO items
           (todo "TODO"
@@ -180,8 +175,9 @@
           (todo "HOLD"
                 ((org-agenda-overriding-header "On-hold")))
           ;; All headings with the "recurring" tag
-          (tags "recurring/!"
-                ((org-agenda-overriding-header "Recurring"))))
+          (tags "recurring"
+                ((org-agenda-overriding-header "Recurring"))
+                ) )
          nil)))
 
     (setq org-startup-with-inline-images t)
