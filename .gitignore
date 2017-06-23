@@ -1,4 +1,6 @@
 .emacs.d/auto-save-list
 .emacs.d/elpa
-
+.elfeed/
 .emacs.d/personal/custom.el
+
+.ssh/
