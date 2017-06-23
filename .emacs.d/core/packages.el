@@ -39,6 +39,8 @@
 
       ;; cc-dev
       rtags
+      company-rtags
+      flycheck-rtags
 
       ;; ui enhancement
       which-key
