@@ -103,7 +103,8 @@ by Prelude.")
 
 ;; OSX specific settings
 (when (eq system-type 'darwin)
-  (require 'osx))
+  (require 'osx)
+  )
 
 (when (eq system-type 'gnu/linux)
   (defvar dropbox-dir "~/Dropbox"

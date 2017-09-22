@@ -19,6 +19,7 @@
 ;; elfeed
 (setq elfeed-feeds
       '("https://www.reddit.com/r/CS_Questions/.rss"
+        "https://www.reddit.com/r/emacs/.rss"
         "http://www.reddit.com/r/cpp/.rss"))
 
 (setf url-queue-timeout 30)
