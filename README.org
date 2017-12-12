@@ -1,0 +1,14 @@
+
+# hekim dotfiles 
+
+* Windows
+** use *windows-nt* branch
+** irony-mode for C++ 
+
+* Linux
+** *ubuntu branch
+** rtags for C++
+
+* tmux configuration
+Prefix changed to use C-\ instead of C-b 
+`bind-key C-\ send-prefix`
