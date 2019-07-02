@@ -25,7 +25,7 @@
 
     (add-to-list 'org-src-lang-modes '("http" . ob-http))
 
-    (defvar org-dir (expand-file-name  "private/orgs/" (file-name-as-directory dropbox-dir))
+    (defvar org-dir (expand-file-name  "orgs/" (file-name-as-directory dropbox-dir))
       "Org files home directory.") ;; D:\Dropbox\private\orgs in Windows-nt
     (defvar org-refile-filename (expand-file-name  "refile.org" org-dir)
       "Org files home directory.")
@@ -75,9 +75,9 @@
         (C . t)))
 
     ;; agenda setup
-    ;;(setq org-agenda-files (list org-dir))
+    (setq org-agenda-files (list org-dir))
     ;;(add-to-list 'org-agenda-files (expand-file-name "D:\storage\Dropbox\private\orgs"))
-    (setq org-agenda-files '("D:\\Dropbox\\private\\orgs"))
+    ;;(setq org-agenda-files '("D:\\Dropbox\\private\\orgs"))
 ;;------------------------------------------------------------------------------
 ;; Load org agenda files
 ;;------------------------------------------------------------------------------
