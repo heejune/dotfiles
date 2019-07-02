@@ -36,7 +36,7 @@
       exec-path-from-shell
       web-beautify
       ;;nyan-mode    installed manually
-      column-marker
+      ;column-marker
       ob-http
 
       ;; cc-dev

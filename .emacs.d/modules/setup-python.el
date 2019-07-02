@@ -70,8 +70,8 @@ is considered to be a project root."
   (setq python-indent-guess-indent-offset nil))
 
 ;; Highlight character at "fill-column" position.
-(require 'column-marker)
-(set-face-background 'column-marker-1 "red")
+;(require 'column-marker)
+;(set-face-background 'column-marker-1 "red")
 
 (add-hook 'python-mode-hook 'my-jedi-setup)
 
