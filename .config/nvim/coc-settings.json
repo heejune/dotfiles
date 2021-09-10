@@ -1,0 +1,6 @@
+
+{
+// coc-rust-analyzer
+"rust-analyzer.enable": true,
+"rust-analyzer.server.path": "/usr/local/Cellar/rust-analyzer/2021-08-16/bin/rust-analyzer"
+}
