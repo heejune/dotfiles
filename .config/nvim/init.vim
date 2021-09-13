@@ -10,8 +10,9 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'rust-lang/rust.vim'
 call plug#end()
-colorscheme elflord
+
 map <C-P> :FZF<cr>
 "set mouse=n
 "set inccommand=split
@@ -34,3 +35,6 @@ function! s:show_documentation()
 endfunction
 
 set number
+
+syntax enable
+filetype plugin indent on
