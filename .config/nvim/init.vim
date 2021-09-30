@@ -11,11 +11,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rust-lang/rust.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'itchyny/lightline.vim'
 call plug#end()
-
-map <C-P> :FZF<cr>
-"set mouse=n
-"set inccommand=split
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -38,3 +36,7 @@ set number
 
 syntax enable
 filetype plugin indent on
+let g:rustfmt_autosave = 1
+
+" FZF vim
+nnoremap <C-p> :Files<Cr>
