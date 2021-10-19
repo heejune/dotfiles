@@ -68,19 +68,19 @@ local lspconfig = require('lspconfig')
 
 local cmp = require('cmp')
 
-  cmp.setup({
-    mapping = {
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+cmp.setup({
+mapping = {
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
-    sources = {
-      { name = 'nvim_lsp' },
-      { name = 'buffer' },
+sources = {
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
     }
-  })
+})
 
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -222,7 +222,7 @@ set mouse=a " Enable mouse usage (all modes) in terminals
 set visualbell
 set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
-set colorcolumn=80 " and give me a colored column
+"set colorcolumn=80 " and give me a colored column
 set shortmess+=c " don't give |ins-completion-menu| messages.
 
 " indent "
@@ -259,7 +259,7 @@ set printfont=:h10
 set printencoding=utf-8
 set printoptions=paper:letter
 " Always draw sign column. Prevent buffer moving when adding/deleting sign.
-"set signcolumn=yes
+set signcolumn=yes
 
 " Sane splits
 set splitright
@@ -295,7 +295,4 @@ nnoremap <right> :bn<CR>
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Enable type inlay hints
-"autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
 
