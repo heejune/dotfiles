@@ -31,6 +31,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'hrsh7th/cmp-nvim-lsp' " LSP completion source for nvim-cmp
 Plug 'hrsh7th/nvim-cmp'  " Completion framework
 Plug 'hrsh7th/cmp-vsnip' " Snippet completion source for nvim-cmp
+Plug 'ray-x/lsp_signature.nvim'
 
 " Snippet engine
 Plug 'hrsh7th/vim-vsnip'
@@ -81,6 +82,41 @@ lua <<EOF
 -- nvim_lsp object
 local nvim_lsp = require'lspconfig'
 
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  --Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+  -- Get signatures (and _only_ signatures) when in argument lists.
+  require "lsp_signature".on_attach({
+    doc_lines = 0,
+    handler_opts = {
+      border = "none"
+    },
+  })
+end
+
 local opts = {
     tools = {
         autoSetHints = true,
@@ -89,9 +125,13 @@ local opts = {
             use_telescope = true
         },
         inlay_hints = {
+            only_current_line = false,
+            only_current_line_autocmd = "CursorHold",
             show_parameter_hints = false,
             parameter_hints_prefix = "",
             other_hints_prefix = "",
+            typeHintsSeparator = "‣ ",
+            chainingHintsSeparator = "‣ ",
         },
     },
 
@@ -100,7 +140,11 @@ local opts = {
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
     server = {
         -- on_attach is a callback called when the language server attachs to the buffer
-        -- on_attach = on_attach,
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+            },
+        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
         settings = {
             -- to enable rust-analyzer settings visit:
             -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
@@ -211,6 +255,12 @@ let g:lightline.component_type = {
             \ 'linter_ok': 'right',
             \ }
 
+let g:lightline#lsp#indicator_hints = "💡 "
+let g:lightline#lsp#indicator_infos = "💁 "
+let g:lightline#lsp#indicator_warnings = "🤔 "
+let g:lightline#lsp#indicator_errors = "❌ "
+let g:lightline#lsp#indicator_ok = "👍"
+
 " rust
 let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
@@ -221,6 +271,12 @@ let g:rustfmt_fail_silently = 0
 let mapleader = "\<Space>"
 
 " Quickly insert semicolon at end of line
+
+let g:lightline#lsp#indicator_hints = "💡 "
+let g:lightline#lsp#indicator_infos = "💁 "
+let g:lightline#lsp#indicator_warnings = "🤔 "
+let g:lightline#lsp#indicator_errors = "❌ "
+let g:lightline#lsp#indicator_ok = "👍"
 noremap <leader>; maA;<esc>`a
 
 " FZF vim
