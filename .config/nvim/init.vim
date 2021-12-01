@@ -13,6 +13,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " https://sharksforarms.dev/posts/neovim-rust/
 " Collection of common configurations for the Nvim LSP client
@@ -30,10 +31,10 @@ Plug 'nvim-telescope/telescope.nvim'
 "copmletion"
 Plug 'hrsh7th/cmp-nvim-lsp' " LSP completion source for nvim-cmp
 Plug 'hrsh7th/nvim-cmp'  " Completion framework
-Plug 'hrsh7th/cmp-vsnip' " Snippet completion source for nvim-cmp
 Plug 'ray-x/lsp_signature.nvim'
 
 " Snippet engine
+Plug 'hrsh7th/cmp-vsnip' " Snippet completion source for nvim-cmp
 Plug 'hrsh7th/vim-vsnip'
 
 " Other usefull completion sources
@@ -52,6 +53,8 @@ Plug 'plasticboy/vim-markdown'
 " GUI
 Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'andymass/vim-matchup'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -117,6 +120,8 @@ local on_attach = function(client, bufnr)
   })
 end
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 local opts = {
     tools = {
         autoSetHints = true,
@@ -144,7 +149,7 @@ local opts = {
         flags = {
             debounce_text_changes = 150,
             },
-        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        capabilities = capabilities,
         settings = {
             -- to enable rust-analyzer settings visit:
             -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
@@ -152,6 +157,16 @@ local opts = {
                 -- enable clippy on save
                 checkOnSave = {
                     command = "clippy"
+                    },
+                completion = {
+                    autoimport = {
+                    enable = true,
+                    },
+                },
+            cargo = {
+                allFeatures = true,
+                autoreload = true,
+                runBuildScripts = true,
                 },
             }
         }
@@ -202,19 +217,28 @@ cmp.setup({
       select = true,
     })
   },
-
   -- Installed sources
-  sources = {
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+     }, {
     { name = 'vsnip' },
+     }, {
     { name = 'path' },
+     }, {
     { name = 'buffer' },
-  },
+  }),
+})
+
+-- Enable completing paths in :
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  })
 })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
+    virtual_text = true,
     underline = true,
     signs = true,
     update_in_insert = true,
@@ -394,7 +418,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
 " Show diagnostic popup on cursor hover
-autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+"autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
 " Goto previous/next diagnostic warning/error
 nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
