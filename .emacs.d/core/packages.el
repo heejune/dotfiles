@@ -1,7 +1,6 @@
 
 
 ;;; Code:
-(require 'cl)
 (require 'package) ;; You might already have this line
 
 
@@ -27,7 +26,6 @@
     '(magit
       paredit
       popup
-      autopair
       ;;header2 missing from melpa
       rainbow-mode
       rainbow-delimiters
