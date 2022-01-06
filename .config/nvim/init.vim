@@ -175,6 +175,7 @@ local opts = {
 }
 
 require('rust-tools').setup(opts)
+require('crates').setup()
 EOF
 
 " Code navigation shortcuts
