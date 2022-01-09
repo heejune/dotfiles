@@ -4,3 +4,4 @@
 .emacs.d/personal/custom.el
 
 .ssh/
+.emacs.d/transient/history.el

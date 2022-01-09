@@ -118,6 +118,11 @@ by Prelude.")
   (require 'windows)
   )
 
+(when (eq system-type 'darwin)
+  (defvar dropbox-dir "~/Dropbox"
+  "Dropbox home folder.")
+  )
+
 (message "Loading modules...")
 
 ;; the modules

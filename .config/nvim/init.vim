@@ -1,4 +1,5 @@
-" references https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim
+" references from https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim
+" https://github.com/davidpdrsn/dotfiles/blob/master/nvim/init.vim
 " https://github.com/sharksforarms/vim-rust/blob/master/neovim-init-lsp-cmp-rust-tools.vim
 " https://sharksforarms.dev/posts/neovim-rust/
 
@@ -174,6 +175,7 @@ local opts = {
 }
 
 require('rust-tools').setup(opts)
+require('crates').setup()
 EOF
 
 " Code navigation shortcuts

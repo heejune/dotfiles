@@ -26,7 +26,7 @@
     (add-to-list 'org-src-lang-modes '("http" . ob-http))
 
     (defvar org-dir (expand-file-name  "private/orgs/" (file-name-as-directory dropbox-dir))
-      "Org files home directory.") ;; D:\storage\Dropbox\private\orgs in Windows-nt
+      "Org files home directory.") ;; D:\Dropbox\private\orgs in Windows-nt
     (defvar org-refile-filename (expand-file-name  "refile.org" org-dir)
       "Org files home directory.")
 
@@ -67,7 +67,7 @@
      'org-babel-load-languages
      '( (perl . t)
         (ruby . t)
-        (sh . t)
+        ;(sh . t)
         (python . t)
         (emacs-lisp . t)
         (matlab . t)
@@ -77,12 +77,12 @@
     ;; agenda setup
     ;;(setq org-agenda-files (list org-dir))
     ;;(add-to-list 'org-agenda-files (expand-file-name "D:\storage\Dropbox\private\orgs"))
-    ;;(setq org-agenda-files '("D:\storage\Dropbox\private\orgs"))
+    (setq org-agenda-files '("D:\\Dropbox\\private\\orgs"))
 ;;------------------------------------------------------------------------------
 ;; Load org agenda files
 ;;------------------------------------------------------------------------------
-(load-library "find-lisp")
-(setq org-agenda-files (find-lisp-find-files org-dir "\.org$"))
+;;(load-library "find-lisp")
+;;(setq org-agenda-files (find-lisp-find-files org-dir "\.org$"))
 
     ;; override the default keyword
     ;; (setq org-todo-keywords
